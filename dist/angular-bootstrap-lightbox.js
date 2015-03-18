@@ -4,7 +4,6 @@
 angular.module('bootstrapLightbox', [
   'ngTouch',
   'ui.bootstrap',
-  'chieffancypants.loadingBar',
 ]);
 angular.module('bootstrapLightbox').run(['$templateCache', function($templateCache) {
   'use strict';
@@ -172,8 +171,8 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
     };
   };
 
-  this.$get = ['$document', '$modal', '$timeout', 'cfpLoadingBar',
-      'ImageLoader', function ($document, $modal, $timeout, cfpLoadingBar,
+  this.$get = ['$document', '$modal', '$timeout',
+      'ImageLoader', function ($document, $modal, $timeout,
       ImageLoader) {
     var Lightbox = {};
 
@@ -283,9 +282,6 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
         Lightbox.imageCaption = null;
 
         Lightbox.keyboardNavEnabled = false;
-
-        // complete any lingering loading bar progress
-        cfpLoadingBar.complete();
       });
 
       return Lightbox.modalInstance;
@@ -317,13 +313,9 @@ angular.module('bootstrapLightbox').provider('Lightbox', function () {
         throw 'Invalid image.';
       }
 
-      cfpLoadingBar.start();
-
       var success = function () {
         Lightbox.index = newIndex;
         Lightbox.image = Lightbox.images[Lightbox.index];
-
-        cfpLoadingBar.complete();
       };
 
       var imageUrl = Lightbox.getImageUrl(Lightbox.images[newIndex]);
